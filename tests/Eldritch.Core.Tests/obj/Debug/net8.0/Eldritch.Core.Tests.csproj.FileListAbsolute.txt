@@ -100,3 +100,4 @@ C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\tests\Eldritch.Core.
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\tests\Eldritch.Core.Tests\obj\Debug\net8.0\Eldritch.Core.Tests.pdb
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\tests\Eldritch.Core.Tests\obj\Debug\net8.0\Eldritch.Core.Tests.genruntimeconfig.cache
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\tests\Eldritch.Core.Tests\obj\Debug\net8.0\ref\Eldritch.Core.Tests.dll
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\tests\Eldritch.Core.Tests\obj\Debug\net8.0\Eldritch.Core.Tests.sourcelink.json
