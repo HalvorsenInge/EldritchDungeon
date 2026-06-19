@@ -12,8 +12,9 @@ namespace Eldritch.Core.Tests
             var rng = new System.Random(1);
             var profile = CharacterCreator.CreateCharacter(rng, Race.Human, CharacterClass.Warrior);
             profile = Presets.ApplyPreset(profile, "Veteran");
-n            Assert.Contains("Longsword", profile.StartingEquipment);
-            Assert.True(profile.Stats.Str >= 12); // base roll plus preset        
+
+            Assert.Contains("Longsword", profile.StartingEquipment);
+            Assert.True(profile.Stats.Str >= 12); // base roll plus preset
         }
 
         [Fact]
@@ -24,7 +25,8 @@ namespace Eldritch.Core.Tests
             profile = Presets.ApplyPreset(profile, "Novice");
             var inv = new InventoryManager();
             Presets.ApplyToInventory(profile, inv);
-n            Assert.True(inv.Count >= 1);
+
+            Assert.True(inv.Count >= 1);
             Assert.NotNull(inv.FindByName("Dagger"));
         }
     }
