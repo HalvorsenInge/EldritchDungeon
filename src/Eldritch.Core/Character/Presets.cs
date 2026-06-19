@@ -28,12 +28,12 @@ namespace Eldritch.Core.Character
             }
             return profile;
         }
-n        public static void ApplyToInventory(CharacterProfile profile, InventoryManager inv)
+        public static void ApplyToInventory(CharacterProfile profile, InventoryManager inv)
         {
             if (profile.StartingEquipment == null) return;
             foreach(var name in profile.StartingEquipment)
             {
-                inv.Add(new Item(name));
+                inv.Add(new Item(name, "Misc"));
             }
         }
     }
