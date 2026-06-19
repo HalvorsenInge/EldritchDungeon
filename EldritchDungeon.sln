@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eldritch.Core.Tests", "tests\Eldritch.Core.Tests\Eldritch.Core.Tests.csproj", "{F9FFED27-8E18-41EB-A787-507C52A16AFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eldritch.Cli", "src\Eldritch.Cli\Eldritch.Cli.csproj", "{FC631A3D-09B1-49E9-A14C-F524FC9244CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,11 +33,24 @@ Global
 		{F9FFED27-8E18-41EB-A787-507C52A16AFF}.Release|x64.Build.0 = Release|Any CPU
 		{F9FFED27-8E18-41EB-A787-507C52A16AFF}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9FFED27-8E18-41EB-A787-507C52A16AFF}.Release|x86.Build.0 = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|x64.Build.0 = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|x64.ActiveCfg = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|x64.Build.0 = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F9FFED27-8E18-41EB-A787-507C52A16AFF} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{FC631A3D-09B1-49E9-A14C-F524FC9244CF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
