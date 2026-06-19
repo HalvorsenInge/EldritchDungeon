@@ -19,7 +19,8 @@ namespace Eldritch.Core.Systems
             var defHealth = defender.GetComponent<HealthComponent>();
             var defArmor = defender.GetComponent<ArmorComponent>();
             if (defHealth == null) return;
-n            int attackerDex = atkStats?.Dex ?? 0;
+
+            int attackerDex = atkStats?.Dex ?? 0;
             int defenderDex = defStats?.Dex ?? 0;
 
             // Miss if attacker is less dexterous than defender
@@ -33,7 +34,8 @@ namespace Eldritch.Core.Systems
             int armor = defArmor?.Armor ?? 0;
             int mitig = armor / 2;
             damage = Math.Max(0, damage - mitig);
-n            defHealth.HP = Math.Max(0, defHealth.HP - damage);
+
+            defHealth.HP = Math.Max(0, defHealth.HP - damage);
         }
     }
 }
