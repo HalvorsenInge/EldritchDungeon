@@ -1,0 +1,9 @@
+[
+  { "Id": "dagger", "Name": "Dagger", "Damage": 4, "CritRange": "18-20x2", "Speed": "Fast", "Range": 1, "Special": "Backstab +50%" },
+  { "Id": "shortsword", "Name": "Shortsword", "Damage": 8, "CritRange": "19-20x2", "Speed": "Normal", "Range": 1, "Special": "" },
+  { "Id": "longsword", "Name": "Longsword", "Damage": 12, "CritRange": "19-20x2", "Speed": "Normal", "Range": 1, "Special": "Parry +1" },
+  { "Id": "battleaxe", "Name": "Battleaxe", "Damage": 15, "CritRange": "20x3", "Speed": "Slow", "Range": 1, "Special": "Armor pierce 5" },
+  { "Id": "mace", "Name": "Mace", "Damage": 10, "CritRange": "20x2", "Speed": "Normal", "Range": 1, "Special": "Ignore armor" },
+  { "Id": "spear", "Name": "Spear", "Damage": 10, "CritRange": "20x2", "Speed": "Normal", "Range": 2, "Special": "Reach" },
+  { "Id": "flintlock", "Name": "Flintlock Pistol", "Damage": 12, "CritRange": "19-20x2", "Speed": "Slow", "Range": 6, "Special": "Ammo(6)" }
+]

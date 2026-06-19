@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Eldritch.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcf5a0fa2fd649c0cb2c6fbc2c7283e70d9a26c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28027bd9c97ead07813202c5d5c1cf2ef87f09ca")]
 [assembly: System.Reflection.AssemblyProductAttribute("Eldritch.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Eldritch.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
