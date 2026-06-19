@@ -13,7 +13,8 @@ namespace Eldritch.Core.Systems
             var atkStats = attacker.GetComponent<StatsComponent>();
             var defHealth = defender.GetComponent<HealthComponent>();
             if (defHealth == null) return;
-n            int str = atkStats?.Str ?? 1;
+
+            int str = atkStats?.Str ?? 1;
             int damage = Math.Max(1, str / 2);
             defHealth.HP = Math.Max(0, defHealth.HP - damage);
         }
