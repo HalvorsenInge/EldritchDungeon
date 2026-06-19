@@ -23,7 +23,6 @@ namespace Eldritch.Core.Tests
             var buf = AsciiRenderer.Render(map, mgr);
 
             Assert.Equal('#', buf[0,0]); // default wall
-            Assert.Equal('.', buf[1,1]); // center should be floor before entity placement or after? renderer places entity on top
             // renderer places entity on top, so expect 'E' at center
             Assert.Equal('E', buf[1,1]);
         }
