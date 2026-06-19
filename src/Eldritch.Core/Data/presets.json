@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Veteran",
+    "stats": { "Str": 2, "Dex": 0, "Con": 0, "Int": 0, "Wis": 0, "Cha": 0 },
+    "hpBonus": 5,
+    "equipment": [ "Longsword", "Shield", "Leather Armor" ]
+  },
+  {
+    "name": "Novice",
+    "stats": { "Str": 0, "Dex": 0, "Con": 1, "Int": 0, "Wis": 0, "Cha": 0 },
+    "hpBonus": 0,
+    "equipment": [ "Dagger", "Cloak" ]
+  },
+  {
+    "name": "Arcane-Adept",
+    "stats": { "Str": 0, "Dex": 0, "Con": 0, "Int": 3, "Wis": 0, "Cha": 0 },
+    "hpBonus": 0,
+    "equipment": [ "Wand", "Spellbook" ]
+  }
+]
