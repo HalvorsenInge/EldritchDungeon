@@ -21,7 +21,7 @@ namespace Eldritch.Core.Tests
 
             var psi = new ProcessStartInfo("dotnet")
             {
-                Arguments = "run --project src\\Eldritch.Cli -- --race=Human --class=Warrior --non-interactive --play --render-once --seed=42 --map-width=20 --map-height=10 --viewport-width=10 --viewport-height=5",
+                Arguments = "run --project src/Eldritch.Cli -- --race=Human --class=Warrior --non-interactive --play --render-once --seed=42 --map-width=20 --map-height=10 --viewport-width=10 --viewport-height=5",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
