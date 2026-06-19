@@ -11,16 +11,19 @@ namespace Eldritch.Core.Tests
         {
             var rng1 = new Random(12345);
             var rng2 = new Random(12345);
-n            var s1 = CharacterCreator.RollStats(rng1);
+
+            var s1 = CharacterCreator.RollStats(rng1);
             var s2 = CharacterCreator.RollStats(rng2);
-n            Assert.Equal(s1.Str, s2.Str);
+
+            Assert.Equal(s1.Str, s2.Str);
             Assert.Equal(s1.Dex, s2.Dex);
             Assert.Equal(s1.Con, s2.Con);
             Assert.Equal(s1.Int, s2.Int);
             Assert.Equal(s1.Wis, s2.Wis);
             Assert.Equal(s1.Cha, s2.Cha);
         }
-n        [Fact]
+
+        [Fact]
         public void RollStats_ValuesInRange()
         {
             var rng = new Random(1);
