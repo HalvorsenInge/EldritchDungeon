@@ -1,8 +1,14 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using Eldritch.Core;
 using Eldritch.Core.Character;
 using Eldritch.Core.Inventory;
+using Eldritch.Core.Map;
+using Eldritch.Core.Rendering;
+using Eldritch.Core.Components;
+using Eldritch.Core.Entities;
 
 namespace Eldritch.Cli
 {
@@ -52,6 +58,8 @@ namespace Eldritch.Cli
 
             Random rng = seed.HasValue ? new Random(seed.Value) : new Random();
 
+            bool playMode = options.ContainsKey("play") || options.ContainsKey("game");
+
             // Interactive fallback if needed
             if (!nonInteractive)
             {
@@ -74,6 +82,11 @@ namespace Eldritch.Cli
                     int psel = PromptNumber(0, presets.Length) - 1;
                     if (psel >= 0) chosenPreset = presets[psel];
                 }
+
+                // Offer to launch small game screen
+                Console.WriteLine("Launch game screen? (Y/n)");
+                var launch = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(launch) || launch.Trim().ToLowerInvariant().StartsWith("y")) playMode = true;
             }
             else
             {
@@ -94,6 +107,11 @@ namespace Eldritch.Cli
                 var inv = new InventoryManager();
                 CharacterCreationWizard.ApplyPresetToInventory(profile, inv);
                 Console.WriteLine($"Inventory contains {inv.Count} items.");
+            }
+
+            if (playMode)
+            {
+                PlayLoop(profile);
             }
 
             return 0;
@@ -166,6 +184,57 @@ namespace Eldritch.Cli
                 dict[key] = val;
             }
             return dict;
+        }
+
+        static void PlayLoop(CharacterProfile profile, int width = 40, int height = 20)
+        {
+            var map = new Map(width, height);
+            // carve a simple room inside borders
+            for (int x = 1; x < width - 1; x++) for (int y = 1; y < height - 1; y++) map.Set(x, y, TileType.Floor);
+
+            var manager = new EntityManager();
+            var player = manager.CreateEntity();
+            var startX = width / 2; var startY = height / 2;
+            player.AddComponent(new PositionComponent(startX, startY));
+
+            Console.Clear();
+            while (true)
+            {
+                var buf = AsciiRenderer.Render(map, manager);
+                Console.SetCursorPosition(0, 0);
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++) Console.Write(buf[x, y]);
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"HP: {profile.HP}/{profile.MaxHP}  STR:{profile.Stats.Str} DEX:{profile.Stats.Dex}");
+                Console.WriteLine("Use arrows or WASD to move, Q to quit.");
+
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Q) break;
+                int dx = 0, dy = 0;
+                switch (key.Key)
+                {
+                    case ConsoleKey.LeftArrow: case ConsoleKey.A: dx = -1; break;
+                    case ConsoleKey.RightArrow: case ConsoleKey.D: dx = 1; break;
+                    case ConsoleKey.UpArrow: case ConsoleKey.W: dy = -1; break;
+                    case ConsoleKey.DownArrow: case ConsoleKey.S: dy = 1; break;
+                }
+
+                if (dx != 0 || dy != 0)
+                {
+                    var pos = player.GetComponent<PositionComponent>();
+                    if (pos != null)
+                    {
+                        var nx = pos.X + dx; var ny = pos.Y + dy;
+                        if (nx >= 0 && nx < map.Width && ny >= 0 && ny < map.Height && map.Get(nx, ny) == TileType.Floor)
+                        {
+                            pos.X = nx; pos.Y = ny;
+                        }
+                    }
+                }
+            }
         }
     }
 }
