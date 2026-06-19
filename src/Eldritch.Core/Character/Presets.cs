@@ -35,6 +35,5 @@ namespace Eldritch.Core.Character
             {
                 inv.Add(new Item(name));
             }
-        }
-    }
+        }    }
 }
