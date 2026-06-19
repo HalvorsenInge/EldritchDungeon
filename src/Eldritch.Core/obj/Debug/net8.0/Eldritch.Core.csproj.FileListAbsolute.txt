@@ -9,3 +9,4 @@ C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\ob
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\refint\Eldritch.Core.dll
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.pdb
 C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\ref\Eldritch.Core.dll
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.sourcelink.json
