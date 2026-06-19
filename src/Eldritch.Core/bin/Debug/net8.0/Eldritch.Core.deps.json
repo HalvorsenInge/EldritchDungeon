@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Eldritch.Core/1.0.0": {
+        "runtime": {
+          "Eldritch.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Eldritch.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
