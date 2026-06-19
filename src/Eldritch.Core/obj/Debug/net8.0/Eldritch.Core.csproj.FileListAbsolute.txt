@@ -1,0 +1,11 @@
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\bin\Debug\net8.0\Eldritch.Core.deps.json
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\bin\Debug\net8.0\Eldritch.Core.dll
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\bin\Debug\net8.0\Eldritch.Core.pdb
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.AssemblyInfoInputs.cache
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.AssemblyInfo.cs
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.csproj.CoreCompileInputs.cache
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.dll
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\refint\Eldritch.Core.dll
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\Eldritch.Core.pdb
+C:\Users\inge.halvorsen\development\vibing\RL med Knowledge\src\Eldritch.Core\obj\Debug\net8.0\ref\Eldritch.Core.dll
