@@ -17,7 +17,7 @@ namespace Eldritch.Core.Character
                 int sum = a + b + c + d - Math.Min(Math.Min(a,b), Math.Min(c,d));
                 return sum;
             }
-n            return new StatsComponent(
+            return new StatsComponent(
                 str: Roll4d6DropLowest(),
                 dex: Roll4d6DropLowest(),
                 con: Roll4d6DropLowest(),
