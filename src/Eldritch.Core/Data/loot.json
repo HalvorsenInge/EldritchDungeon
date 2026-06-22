@@ -1,0 +1,6 @@
+[
+  { "id": "gold", "name": "Gold", "spawn_weight": 40, "value": 10, "sanity_impact": 0, "tags": ["currency"] },
+  { "id": "potion", "name": "Healing Potion", "spawn_weight": 25, "value": 0, "sanity_impact": 0, "tags": ["consumable"] },
+  { "id": "scroll", "name": "Strange Scroll", "spawn_weight": 20, "value": 0, "sanity_impact": 3, "tags": ["arcane"] },
+  { "id": "dagger", "name": "Dagger", "spawn_weight": 15, "value": 0, "sanity_impact": 0, "tags": ["weapon"] }
+]

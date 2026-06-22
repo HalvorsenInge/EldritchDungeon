@@ -1,0 +1,6 @@
+[
+  { "id": "rat", "name": "Giant Rat", "spawn_weight": 50, "power": 1, "sanity_impact": 0, "tags": ["beast"] },
+  { "id": "cultist", "name": "Cultist", "spawn_weight": 30, "power": 3, "sanity_impact": 2, "tags": ["humanoid"] },
+  { "id": "deep_one", "name": "Deep One", "spawn_weight": 15, "power": 6, "sanity_impact": 5, "tags": ["aquatic","horror"] },
+  { "id": "shoggoth", "name": "Shoggoth", "spawn_weight": 5, "power": 12, "sanity_impact": 20, "tags": ["abomination"] }
+]
