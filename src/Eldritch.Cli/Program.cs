@@ -1,8 +1,14 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using Eldritch.Core;
 using Eldritch.Core.Character;
 using Eldritch.Core.Inventory;
+using Eldritch.Core.Map;
+using Eldritch.Core.Rendering;
+using Eldritch.Core.Components;
+using Eldritch.Core.Entities;
 
 namespace Eldritch.Cli
 {
@@ -35,6 +41,16 @@ namespace Eldritch.Cli
             int? seed = null;
             if (options.TryGetValue("seed", out var seedStr) && int.TryParse(seedStr, out var sval)) seed = sval;
 
+            // Map and viewport sizes
+            int mapWidth = 80, mapHeight = 40;
+            int viewportWidth = 40, viewportHeight = 20;
+            if (options.TryGetValue("map-width", out var mw) && int.TryParse(mw, out var mi)) mapWidth = Math.Max(10, mi);
+            if (options.TryGetValue("map-height", out var mh) && int.TryParse(mh, out var mbi)) mapHeight = Math.Max(10, mbi);
+            if (options.TryGetValue("viewport-width", out var vwStr) && int.TryParse(vwStr, out var vwi)) viewportWidth = Math.Max(5, vwi);
+            if (options.TryGetValue("viewport-height", out var vhStr) && int.TryParse(vhStr, out var vhi)) viewportHeight = Math.Max(5, vhi);
+
+            bool renderOnce = options.ContainsKey("render-once") || options.ContainsKey("renderonce") || options.ContainsKey("ro");
+
             // Race, Class, Preset
             Race? raceOpt = null;
             if (options.TryGetValue("race", out var rstr) && Enum.TryParse<Race>(rstr, true, out var r)) raceOpt = r;
@@ -51,6 +67,8 @@ namespace Eldritch.Cli
             bool applyToInventory = options.ContainsKey("apply") || options.ContainsKey("a");
 
             Random rng = seed.HasValue ? new Random(seed.Value) : new Random();
+
+            bool playMode = options.ContainsKey("play") || options.ContainsKey("game");
 
             // Interactive fallback if needed
             if (!nonInteractive)
@@ -74,6 +92,11 @@ namespace Eldritch.Cli
                     int psel = PromptNumber(0, presets.Length) - 1;
                     if (psel >= 0) chosenPreset = presets[psel];
                 }
+
+                // Offer to launch small game screen
+                Console.WriteLine("Launch game screen? (Y/n)");
+                var launch = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(launch) || launch.Trim().ToLowerInvariant().StartsWith("y")) playMode = true;
             }
             else
             {
@@ -96,7 +119,43 @@ namespace Eldritch.Cli
                 Console.WriteLine($"Inventory contains {inv.Count} items.");
             }
 
+            if (playMode)
+            {
+                if (renderOnce)
+                {
+                    RenderOnce(profile, mapWidth, mapHeight, viewportWidth, viewportHeight);
+                }
+                else
+                {
+                    PlayLoop(profile, mapWidth, mapHeight, viewportWidth, viewportHeight);
+                }
+            }
+
             return 0;
+        }
+
+        static void RenderOnce(CharacterProfile profile, int mapWidth = 80, int mapHeight = 40, int viewportWidth = 40, int viewportHeight = 20)
+        {
+            var map = new Map(mapWidth, mapHeight);
+            for (int x = 1; x < mapWidth - 1; x++) for (int y = 1; y < mapHeight - 1; y++) map.Set(x, y, TileType.Floor);
+            var manager = new EntityManager();
+            var player = manager.CreateEntity();
+            var startX = mapWidth / 2; var startY = mapHeight / 2;
+            player.AddComponent(new PositionComponent(startX, startY));
+
+            var vx = Math.Max(0, startX - viewportWidth / 2);
+            var vy = Math.Max(0, startY - viewportHeight / 2);
+            vx = Math.Min(Math.Max(0, vx), Math.Max(0, mapWidth - viewportWidth));
+            vy = Math.Min(Math.Max(0, vy), Math.Max(0, mapHeight - viewportHeight));
+
+            var buf = AsciiRenderer.RenderViewport(map, manager, vx, vy, viewportWidth, viewportHeight);
+            for (int y = 0; y < viewportHeight; y++)
+            {
+                for (int x = 0; x < viewportWidth; x++) Console.Write(buf[x, y]);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"HP: {profile.HP}/{profile.MaxHP}  STR:{profile.Stats.Str} DEX:{profile.Stats.Dex}");
         }
 
         static void PrintHelp()
@@ -109,6 +168,11 @@ namespace Eldritch.Cli
             Console.WriteLine("  --preset=Name       Apply preset by name from presets.json");
             Console.WriteLine("  --apply             Apply starting equipment to an inventory (non-interactive)");
             Console.WriteLine("  --non-interactive   Run without prompts (requires --race and --class)");
+            Console.WriteLine("  --viewport-width=N  Viewport width in characters (default 40)");
+            Console.WriteLine("  --viewport-height=N Viewport height in characters (default 20)");
+            Console.WriteLine("  --map-width=N       Map width (default 80)");
+            Console.WriteLine("  --map-height=N      Map height (default 40)");
+            Console.WriteLine("  --play              Launch the simple game screen immediately");
             Console.WriteLine("  --help              Show this help");
         }
 
@@ -166,6 +230,68 @@ namespace Eldritch.Cli
                 dict[key] = val;
             }
             return dict;
+        }
+
+        static void PlayLoop(CharacterProfile profile, int mapWidth = 80, int mapHeight = 40, int viewportWidth = 40, int viewportHeight = 20)
+        {
+            var map = new Map(mapWidth, mapHeight);
+            // carve a simple room inside borders
+            for (int x = 1; x < mapWidth - 1; x++) for (int y = 1; y < mapHeight - 1; y++) map.Set(x, y, TileType.Floor);
+
+            var manager = new EntityManager();
+            var player = manager.CreateEntity();
+            var startX = mapWidth / 2; var startY = mapHeight / 2;
+            player.AddComponent(new PositionComponent(startX, startY));
+
+            Console.Clear();
+            int vx = Math.Max(0, startX - viewportWidth / 2);
+            int vy = Math.Max(0, startY - viewportHeight / 2);
+
+            while (true)
+            {
+                // clamp viewport
+                vx = Math.Min(Math.Max(0, vx), Math.Max(0, mapWidth - viewportWidth));
+                vy = Math.Min(Math.Max(0, vy), Math.Max(0, mapHeight - viewportHeight));
+
+                var buf = AsciiRenderer.RenderViewport(map, manager, vx, vy, viewportWidth, viewportHeight);
+                Console.SetCursorPosition(0, 0);
+                for (int y = 0; y < viewportHeight; y++)
+                {
+                    for (int x = 0; x < viewportWidth; x++) Console.Write(buf[x, y]);
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine($"HP: {profile.HP}/{profile.MaxHP}  STR:{profile.Stats.Str} DEX:{profile.Stats.Dex}");
+                Console.WriteLine("Use arrows or WASD to move, Q to quit.");
+
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Q) break;
+                int dx = 0, dy = 0;
+                switch (key.Key)
+                {
+                    case ConsoleKey.LeftArrow: case ConsoleKey.A: dx = -1; break;
+                    case ConsoleKey.RightArrow: case ConsoleKey.D: dx = 1; break;
+                    case ConsoleKey.UpArrow: case ConsoleKey.W: dy = -1; break;
+                    case ConsoleKey.DownArrow: case ConsoleKey.S: dy = 1; break;
+                }
+
+                if (dx != 0 || dy != 0)
+                {
+                    var pos = player.GetComponent<PositionComponent>();
+                    if (pos != null)
+                    {
+                        var nx = pos.X + dx; var ny = pos.Y + dy;
+                        if (nx >= 0 && nx < map.Width && ny >= 0 && ny < map.Height && map.Get(nx, ny) == TileType.Floor)
+                        {
+                            pos.X = nx; pos.Y = ny;
+
+                            // center viewport on player
+                            vx = pos.X - viewportWidth / 2;
+                            vy = pos.Y - viewportHeight / 2;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -6,25 +6,39 @@ namespace Eldritch.Core.Rendering
 {
     public static class AsciiRenderer
     {
-        // Renders a simple ASCII buffer: Wall='#', Floor='.', Entity='E'
+        // Renders the full map by delegating to the viewport renderer
         public static char[,] Render(Map.Map map, EntityManager manager)
         {
-            var w = map.Width;
-            var h = map.Height;
-            var buf = new char[w, h];
-            for (int x = 0; x < w; x++)
-            for (int y = 0; y < h; y++)
+            return RenderViewport(map, manager, 0, 0, map.Width, map.Height);
+        }
+
+        // Renders a viewport region [vx..vx+vw) x [vy..vy+vh)
+        public static char[,] RenderViewport(Map.Map map, EntityManager manager, int vx, int vy, int vw, int vh)
+        {
+            var buf = new char[vw, vh];
+            for (int x = 0; x < vw; x++)
+            for (int y = 0; y < vh; y++)
             {
-                buf[x, y] = map.Get(x, y) == TileType.Wall ? '#' : '.';
+                int mx = vx + x;
+                int my = vy + y;
+                if (mx >= 0 && mx < map.Width && my >= 0 && my < map.Height)
+                    buf[x, y] = map.Get(mx, my) == TileType.Wall ? '#' : '.';
+                else
+                    buf[x, y] = ' ';
             }
 
             var entities = manager.QueryByComponent<PositionComponent>();
             foreach (var e in entities)
             {
                 var p = e.GetComponent<PositionComponent>();
-                if (p != null && p.X >= 0 && p.X < w && p.Y >= 0 && p.Y < h)
+                if (p != null)
                 {
-                    buf[p.X, p.Y] = 'E';
+                    int rx = p.X - vx;
+                    int ry = p.Y - vy;
+                    if (rx >= 0 && rx < vw && ry >= 0 && ry < vh)
+                    {
+                        buf[rx, ry] = 'E';
+                    }
                 }
             }
 
